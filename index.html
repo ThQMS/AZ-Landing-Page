@@ -672,6 +672,16 @@ img { display: block; max-width: 100%; }
   .scroll-cue .bar { width: 56px; height: 1px; }
 }
 
+/* Hero no mobile: afasta o conteúdo da navbar e evita corte do eyebrow */
+@media (max-width: 760px) {
+  .hero { align-items: flex-start; }
+  .hero-content { padding-top: clamp(116px, 17vh, 150px); }
+  .eyebrow { white-space: normal; line-height: 1.7; }
+  .eyebrow .dash { display: none; }
+  .hero-eyebrow { margin-bottom: 28px; }
+  .hero-title { font-size: clamp(40px, 11vw, 62px); }
+}
+
 /* ============================================================
    Section base
    ============================================================ */
