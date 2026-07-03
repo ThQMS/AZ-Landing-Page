@@ -234,6 +234,7 @@ function SectionEyebrow({ roman, label }) {
 function Nav({ isDark, onToggle }) {
   const [scrolled, setScrolled] = useState(false);
   const [overMedia, setOverMedia] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
     const band = 84; // faixa ocupada pela navbar no topo
     const onScroll = () => {
@@ -260,8 +261,8 @@ function Nav({ isDark, onToggle }) {
   ];
 
   return (
-    <nav className={`nav${scrolled ? ' scrolled' : ''}${overMedia ? ' over-media' : ''}`}>
-      <a href="#top" className="nav-mark" data-hover>
+    <nav className={`nav${scrolled ? ' scrolled' : ''}${overMedia ? ' over-media' : ''}${menuOpen ? ' menu-open' : ''}`}>
+      <a href="#top" className="nav-mark" data-hover onClick={() => setMenuOpen(false)}>
         <img src="assets/logo-az-purple.png" alt="AZ Representações" className="nav-logo" />
       </a>
       <div className="nav-links">
@@ -269,6 +270,7 @@ function Nav({ isDark, onToggle }) {
           <a key={l.href} href={l.href} data-hover>{l.label}</a>
         ))}
       </div>
+      <div className="nav-controls">
       <button
         className="nav-theme-toggle"
         onClick={onToggle}
@@ -295,6 +297,27 @@ function Nav({ isDark, onToggle }) {
           </svg>
         )}
       </button>
+      <button
+        className="nav-burger"
+        onClick={() => setMenuOpen((v) => !v)}
+        aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
+        aria-expanded={menuOpen}
+      >
+        <span></span><span></span><span></span>
+      </button>
+      </div>
+      <div className={`nav-mobile${menuOpen ? ' open' : ''}`}>
+        {links.map((l) => (
+          <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)}>{l.label}</a>
+        ))}
+        <a
+          className="nav-mobile-ig"
+          href="https://www.instagram.com/az_representacoes/"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => setMenuOpen(false)}
+        >Instagram</a>
+      </div>
     </nav>
   );
 }
