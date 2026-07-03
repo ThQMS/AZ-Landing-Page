@@ -5,6 +5,9 @@ PPT AZ final.pptx
 # Arquivos de teste temporários (mocks estáticos de render)
 _*.html
 
+# Saída bruta do Upscayl (intermediário pesado; só as melhoradas/ vão pro repo)
+upscayl_*/
+
 # Sistema operacional
 Thumbs.db
 .DS_Store

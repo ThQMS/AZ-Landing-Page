@@ -604,10 +604,23 @@ const CATEGORIES = [
   {
     n: '01', name: 'Sala de Estar',
     desc: 'Century, Tumar, Iummi e Schuster.',
+    // Ordem definida pelo cliente (cronológica das fotos; a 12 vai por último).
+    // Fotos tratadas em Images_Sala_Estar/melhoradas/ como sala_01.jpg … sala_12.jpg.
+    // (o carrossel é tela cheia — 'format' do grid antigo não se aplica;
+    //  ajustar 'pos'/'fit' por foto depois se alguma cortar mal.)
     shots: [
-      { format: 'wide',   caption: 'Century · foto 1' },
-      { format: 'tall',   caption: 'Tumar · foto 2' },
-      { format: 'square', caption: 'Iummi · Schuster · foto 3' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_01.jpg', caption: 'Sala de Estar · 01' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_02.jpg', caption: 'Sala de Estar · 02' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_03.jpg', caption: 'Sala de Estar · 03' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_04.jpg', caption: 'Sala de Estar · 04' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_05.jpg', caption: 'Sala de Estar · 05' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_06.jpg', caption: 'Sala de Estar · 06' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_07.jpg', caption: 'Sala de Estar · 07' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_08.jpg', caption: 'Sala de Estar · 08' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_09.jpg', caption: 'Sala de Estar · 09' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_10.jpg', caption: 'Sala de Estar · 10' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_11.jpg', caption: 'Sala de Estar · 11' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_12.jpg', caption: 'Sala de Estar · 12' },
     ],
   },
   {
