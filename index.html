@@ -543,7 +543,10 @@ img { display: block; max-width: 100%; }
      A, diagonais do M) viram fio de cabelo. Fixamos opsz baixo + peso 400 para
      engrossar as finas e deixar a espessura mais uniforme. */
   font-optical-sizing: none;
-  font-variation-settings: "opsz" 30, "wght" 400;
+  /* opsz BEM baixo: o título usa background-clip:text (gradiente shimmer), e
+     traços finos somem no anti-aliasing. opsz baixo engrossa as finas (traço
+     do meio do A/t, hastes do R) para elas sobreviverem ao recorte. */
+  font-variation-settings: "opsz" 18, "wght" 400;
   font-size: clamp(48px, min(10.5vw, 13vh), 168px);
   line-height: 1.08;
   letter-spacing: -0.035em;
@@ -568,7 +571,7 @@ img { display: block; max-width: 100%; }
   font-style: italic;
   font-weight: 400;
   font-optical-sizing: none;
-  font-variation-settings: "opsz" 30, "wght" 400;
+  font-variation-settings: "opsz" 18, "wght" 400;
   background: linear-gradient(90deg,
     var(--cream-2) 0%, var(--cream-2) 30%,
     var(--champagne) 50%,
