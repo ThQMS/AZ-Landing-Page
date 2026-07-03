@@ -1,0 +1,16 @@
+# Apresentações / binários pesados
+PPT AZ final.pptx
+*.pptx
+
+# Arquivos de teste temporários (mocks estáticos de render)
+_*.html
+
+# Sistema operacional
+Thumbs.db
+.DS_Store
+
+# Temporários
+*.tmp
+
+# Node / build
+node_modules/

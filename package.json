@@ -1,0 +1,13 @@
+{
+  "name": "az-representacoes",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing page AZ Representações — app React em app.jsx, compilado para app.js.",
+  "scripts": {
+    "build": "esbuild app.jsx --loader:.jsx=jsx --jsx=transform --minify --target=es2019 --outfile=app.js",
+    "watch": "esbuild app.jsx --loader:.jsx=jsx --jsx=transform --minify --target=es2019 --outfile=app.js --watch"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0"
+  }
+}
