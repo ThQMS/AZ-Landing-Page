@@ -235,7 +235,10 @@ img { display: block; max-width: 100%; }
 /* Drop cap */
 .dropcap::first-letter {
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 400;
+  /* opsz baixo p/ engrossar a perna fina do A (ver .hero-title) */
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" 26, "wght" 400;
   font-size: 5.8em;
   float: left;
   line-height: 0.82;
@@ -534,7 +537,13 @@ img { display: block; max-width: 100%; }
 
 .hero-title {
   font-family: var(--display);
-  font-weight: 300;
+  font-weight: 400;
+  /* Bodoni Moda é fonte variável (eixo opsz). Sem controle, o navegador usa
+     opsz alto em tamanhos grandes → contraste máximo → hastes finas (perna do
+     A, diagonais do M) viram fio de cabelo. Fixamos opsz baixo + peso 400 para
+     engrossar as finas e deixar a espessura mais uniforme. */
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" 30, "wght" 400;
   font-size: clamp(48px, min(10.5vw, 13vh), 168px);
   line-height: 1.08;
   letter-spacing: -0.035em;
@@ -557,7 +566,9 @@ img { display: block; max-width: 100%; }
 }
 .hero-title .accent {
   font-style: italic;
-  font-weight: 300;
+  font-weight: 400;
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" 30, "wght" 400;
   background: linear-gradient(90deg,
     var(--cream-2) 0%, var(--cream-2) 30%,
     var(--champagne) 50%,
