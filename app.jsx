@@ -652,6 +652,19 @@ const CATEGORIES = [
   },
 ];
 
+// Variantes responsivas geradas por scripts/make-carousel-variants.mjs (sharp).
+// O original (2560px no lado maior) continua sendo o maior candidato → telas
+// grandes recebem exatamente a mesma imagem de hoje. Telas menores recebem a
+// variante menor adequada (economia grande no mobile). Ver CLAUDE.md.
+const CAROUSEL_VARIANT_WIDTHS = [640, 1280, 1600];
+function buildSrcSet(src) {
+  if (!src) return undefined;
+  const base = src.replace(/\.jpe?g$/i, '');
+  const parts = CAROUSEL_VARIANT_WIDTHS.map((w) => `${base}-${w}.jpg ${w}w`);
+  parts.push(`${src} 2560w`);
+  return parts.join(', ');
+}
+
 function Carousel({ num, name, desc, shots }) {
   const [idx, setIdx] = useState(0);
   const n = shots.length;
@@ -664,11 +677,11 @@ function Carousel({ num, name, desc, shots }) {
             {s.src ? (
               s.fit === 'contain' ? (
                 <>
-                  <img className="slide-bg" src={s.src} alt="" aria-hidden="true" />
-                  <img className="slide-img fit-contain" src={s.src} alt={s.caption} loading="lazy" />
+                  <img className="slide-bg" src={s.src} srcSet={buildSrcSet(s.src)} sizes="100vw" alt="" aria-hidden="true" />
+                  <img className="slide-img fit-contain" src={s.src} srcSet={buildSrcSet(s.src)} sizes="100vw" alt={s.caption} loading="lazy" />
                 </>
               ) : (
-                <img className="slide-img" src={s.src} alt={s.caption} loading="lazy" style={s.pos ? { objectPosition: s.pos } : undefined} />
+                <img className="slide-img" src={s.src} srcSet={buildSrcSet(s.src)} sizes="100vw" alt={s.caption} loading="lazy" style={s.pos ? { objectPosition: s.pos } : undefined} />
               )
             ) : (
               <div className="img-placeholder">
@@ -908,9 +921,6 @@ function Aurora({ isDark }) {
       canvas.width  = window.innerWidth  + PAD * 2;
       canvas.height = window.innerHeight + PAD * 2;
     };
-    resize();
-    window.addEventListener('resize', resize);
-
     // bx/by = base position (0-1), ax/ay = drift amplitude,
     // sx/sy = drift speed, px/py = phase offset, r = radius fraction, a = opacity
     const BLOBS = [
@@ -923,8 +933,7 @@ function Aurora({ isDark }) {
       { bx:0.35, by:0.82, ax:0.09, ay:0.08, sx:0.044, sy:0.038, px:1.8, py:0.6, r:0.36, rgb:[184,160, 130 ], a:0.24 },
     ];
 
-    const draw = (ts) => {
-      const t  = ts / 1000;
+    const renderFrame = (t) => {
       const W  = canvas.width;
       const H  = canvas.height;
       const dim = Math.min(W, H);
@@ -948,9 +957,29 @@ function Aurora({ isDark }) {
       });
 
       ctx.globalCompositeOperation = 'source-over';
-      animId = requestAnimationFrame(draw);
     };
 
+    resize();
+
+    // No mobile (ou "menos animações") o canvas animado — 7 blends de tela
+    // cheia por frame + blur(60px) de CSS sobre a viewport inteira — trava a
+    // rolagem. Desenha UMA vez (estático): mantém o visual, sem custo de runtime.
+    const liteAurora = window.matchMedia('(max-width: 760px)').matches
+      || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (liteAurora) {
+      renderFrame(0);
+      const onResize = () => { resize(); renderFrame(0); };
+      window.addEventListener('resize', onResize);
+      return () => window.removeEventListener('resize', onResize);
+    }
+
+    window.addEventListener('resize', resize);
+
+    const draw = (ts) => {
+      renderFrame(ts / 1000);
+      animId = requestAnimationFrame(draw);
+    };
     animId = requestAnimationFrame(draw);
 
     // pausa a animação quando a aba não está visível (economia de CPU/bateria)
@@ -1029,6 +1058,10 @@ function App() {
       t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
     /* ── Trava (snap) nos painéis de ambientes: assenta ao parar de rolar ── */
+    /* Desativado no mobile / "menos animações": o scrollTo forçado após cada
+       parada briga com a rolagem por toque e dá sensação de travamento. */
+    const liteSnap = window.matchMedia('(max-width: 760px)').matches
+      || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let snapTimer;
     const onSnapScroll = () => {
       clearTimeout(snapTimer);
@@ -1048,7 +1081,7 @@ function App() {
         }
       }, 90);
     };
-    window.addEventListener('scroll', onSnapScroll, { passive: true });
+    if (!liteSnap) window.addEventListener('scroll', onSnapScroll, { passive: true });
 
     const onAnchorClick = (e) => {
       const anchor = e.target.closest('a[href^="#"]');

@@ -17,12 +17,13 @@ Landing page institucional de **página única** para representante comercial de
 index.html                    → HTML + CSS + <script src="app.js">
 app.jsx                       → FONTE do app React (editar aqui)
 app.js                        → compilado/minificado (gerado; não editar)
-package.json                  → script de build (esbuild)
-Images_Office/melhoradas/     → 5 fotos do office (usadas no site)
+package.json                  → build (esbuild) + sharp (variantes de imagem)
+scripts/make-carousel-variants.mjs → gera variantes srcset das fotos do carrossel (sharp)
+Images_Office/melhoradas/     → 5 fotos do office + variantes -640/-1280/-1600 (usadas no site)
 Images_Office/*.jpeg          → originais WhatsApp (backup, não usadas)
 Images_Quarto/melhoradas/     → 5 fotos do quarto (usadas)
 Images_Quarto/*.jpeg          → originais WhatsApp (backup)
-assets/                       → image.png (bg), logo-az-purple.png
+assets/                       → image.jpg (textura da marquee, dark-mode), logo-az-purple.png
 assets/logos/                 → 7 logos das fábricas usados no site (adm, bux, century, iummi, pv, schuster, tumar)
 README.md                     → documentação funcional do projeto
 ```
@@ -39,6 +40,7 @@ README.md                     → documentação funcional do projeto
   - **`src`** aponta pra `Images_<Ambiente>/melhoradas/...`. Sem `src` → renderiza `.img-placeholder`.
   - **`pos`** (opcional): ajusta o enquadramento no modo tela cheia. Ex.: `pos: 'center 22%'` (mostra mais o topo). Usar em fotos verticais que cortam parte importante.
   - **`fit: 'contain'`** (opcional): mostra a foto INTEIRA (não corta), preenchendo as laterais com um fundo desfocado da própria imagem. Bom pra fotos muito verticais.
+- **Responsivo (srcset):** cada `<img>` do carrossel recebe `srcset` + `sizes="100vw"` via `buildSrcSet(s.src)`. O navegador escolhe a menor variante nítida p/ cada tela; telas grandes ainda recebem o original (rótulo `2560w`) = mesma qualidade de hoje. As variantes vêm do passo 4 da "Pipeline de imagens" — rodar o script após adicionar foto nova.
 - **Layout estilo Sierra:** cada ambiente é um painel em **tela cheia** (`.carousel` = 100vw full-bleed × 100vh), imagem `object-fit: cover`, título sobreposto (`.carousel-title`), setas SVG chevron, dots, e `.carousel-scrim` (degradê pra legibilidade).
 - **Transição:** crossfade (fade + leve zoom), não deslize. Componente `Carousel` usa `.carousel-slide.active` (opacity).
 
@@ -60,8 +62,16 @@ Chrome headless **trava** ao carregar o CDN (React/Babel/fontes) — rede instá
 
 ## Pipeline de imagens (fotos são WhatsApp comprimidas ~1600px; cliente NÃO tem as originais das fábricas)
 1. Melhorar no **Upscayl** (grátis, 4x — Standard ou UltraSharp).
-2. Reduzir p/ **2560px** no lado maior + **JPEG q86** (via System.Drawing no PowerShell) → salvar em `Images_<Ambiente>/melhoradas/` com o MESMO nome-base do `src`.
+2. Reduzir p/ **2560px** no lado maior + **JPEG q86** → salvar em `Images_<Ambiente>/melhoradas/` com o MESMO nome-base do `src`.
 3. Apontar (ou já está apontado) os `src` do carrossel pra essa pasta.
+4. **⚠️ OBRIGATÓRIO p/ TODA foto nova do carrossel — gerar as variantes responsivas (srcset):**
+   ```
+   npm install            # 1ª vez (traz sharp, além do esbuild)
+   node scripts/make-carousel-variants.mjs
+   ```
+   Gera `nome-640.jpg`, `nome-1280.jpg`, `nome-1600.jpg` ao lado do original (por LARGURA, q86, sem upscale; idempotente — reprocessa só o que falta). O `app.jsx` monta o `srcset` sozinho (`buildSrcSet`), então **não precisa mexer no código** — só rodar o script depois de adicionar a foto. Sem as variantes, o mobile baixa o original de ~700–950 KB à toa.
+
+> **Não usar `System.Drawing`/GDI+ p/ redimensionar** (o `DrawImage` do GDI+ **trava** em certas imagens, ex.: proporções verticais — bug conhecido). Use o `sharp` (libvips), que é o que `make-carousel-variants.mjs` usa. Otimizações pontuais de logos/texturas até podem usar System.Drawing, mas para o lote do carrossel use o sharp.
 
 ## Build (compilar o app React)
 - Fonte: `app.jsx` → compilado para `app.js` com **esbuild**.

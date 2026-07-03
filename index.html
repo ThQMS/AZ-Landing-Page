@@ -58,7 +58,12 @@
   --page-max: 1440px;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+/* Remove o contorno azul ao tocar/clicar (mobile e mouse), mantendo o anel
+   de foco para navegação por teclado (acessibilidade). */
+:focus:not(:focus-visible) { outline: none; }
+button, a { -webkit-tap-highlight-color: transparent; }
 
 html, body {
   background: var(--ink-0);
@@ -174,7 +179,7 @@ img { display: block; max-width: 100%; }
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('assets/image.png');
+  background-image: url('assets/image.jpg');
   background-size: auto 100%;
   background-repeat: repeat-x;
   background-position: 0 center;
@@ -237,6 +242,15 @@ img { display: block; max-width: 100%; }
   margin: 0.05em 0.12em 0 0;
   color: var(--cream);
   font-style: italic;
+}
+/* No mobile o drop cap gigante em itálico ficava desproporcional e encostava
+   nas bordas do texto ("cortado"). Reduz e dá folga para respirar. */
+@media (max-width: 760px) {
+  .dropcap::first-letter {
+    font-size: 3.4em;
+    line-height: 0.92;
+    margin: 0.02em 0.16em 0 0;
+  }
 }
 
 /* ============================================================
@@ -1576,6 +1590,19 @@ img { display: block; max-width: 100%; }
   }
   .reveal, .reveal-slide { opacity: 1 !important; transform: none !important; }
   .carousel-slide .slide-img { transform: none !important; }
+}
+
+/* Mobile: remove o backdrop-blur da navbar (recalculado a cada frame durante o
+   scroll = jank no celular). Fundo um pouco mais sólido p/ manter a legibilidade. */
+@media (max-width: 760px) {
+  .nav.scrolled {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: linear-gradient(135deg, rgba(42, 18, 54, 0.96) 0%, rgba(14, 8, 22, 0.97) 100%);
+  }
+  [data-theme="light"] .nav.scrolled {
+    background: rgba(196, 168, 122, 0.96);
+  }
 }
 </style>
 </head>
