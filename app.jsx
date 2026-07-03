@@ -608,17 +608,21 @@ const CATEGORIES = [
     // Fotos tratadas em Images_Sala_Estar/melhoradas/ como sala_01.jpg … sala_12.jpg.
     // (o carrossel é tela cheia — 'format' do grid antigo não se aplica;
     //  ajustar 'pos'/'fit' por foto depois se alguma cortar mal.)
+    // Tela cheia (cover). Nas fotos verticais, 'pos' joga o corte pra baixo pra
+    // mostrar os MÓVEIS (sofá/mesa/tapete) em vez de teto/parede vazios.
+    // As deitadas (02, 06, 11, 12) já preenchem bem → sem pos. Valores são
+    // ponto de partida; fácil ajustar por foto.
     shots: [
-      { src: 'Images_Sala_Estar/melhoradas/sala_01.jpg', caption: 'Sala de Estar · 01' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_01.jpg', caption: 'Sala de Estar · 01', pos: 'center 72%' },
       { src: 'Images_Sala_Estar/melhoradas/sala_02.jpg', caption: 'Sala de Estar · 02' },
-      { src: 'Images_Sala_Estar/melhoradas/sala_03.jpg', caption: 'Sala de Estar · 03' },
-      { src: 'Images_Sala_Estar/melhoradas/sala_04.jpg', caption: 'Sala de Estar · 04' },
-      { src: 'Images_Sala_Estar/melhoradas/sala_05.jpg', caption: 'Sala de Estar · 05' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_03.jpg', caption: 'Sala de Estar · 03', pos: 'center 55%' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_04.jpg', caption: 'Sala de Estar · 04', pos: 'center 62%' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_05.jpg', caption: 'Sala de Estar · 05', pos: 'center 62%' },
       { src: 'Images_Sala_Estar/melhoradas/sala_06.jpg', caption: 'Sala de Estar · 06' },
-      { src: 'Images_Sala_Estar/melhoradas/sala_07.jpg', caption: 'Sala de Estar · 07' },
-      { src: 'Images_Sala_Estar/melhoradas/sala_08.jpg', caption: 'Sala de Estar · 08' },
-      { src: 'Images_Sala_Estar/melhoradas/sala_09.jpg', caption: 'Sala de Estar · 09' },
-      { src: 'Images_Sala_Estar/melhoradas/sala_10.jpg', caption: 'Sala de Estar · 10' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_07.jpg', caption: 'Sala de Estar · 07', pos: 'center 64%' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_08.jpg', caption: 'Sala de Estar · 08', pos: 'center 60%' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_09.jpg', caption: 'Sala de Estar · 09', pos: 'center 58%' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_10.jpg', caption: 'Sala de Estar · 10', pos: 'center 58%' },
       { src: 'Images_Sala_Estar/melhoradas/sala_11.jpg', caption: 'Sala de Estar · 11' },
       { src: 'Images_Sala_Estar/melhoradas/sala_12.jpg', caption: 'Sala de Estar · 12' },
     ],
