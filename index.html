@@ -961,7 +961,9 @@ img { display: block; max-width: 100%; }
   .carousel-arrow svg { width: 18px; height: 18px; }
   .carousel-name { font-size: clamp(36px, 12vw, 64px); }
   .carousel-title { bottom: 15vh; }
-  .carousel-dots { bottom: calc(15vh + 8px); }
+  /* No mobile as bolinhas ficavam sobre o texto das fábricas (desc longa).
+     Joga elas pro rodapé, centralizadas, abaixo do título. */
+  .carousel-dots { left: var(--gutter); right: var(--gutter); bottom: 7vh; justify-content: center; }
 }
 
 /* ============================================================

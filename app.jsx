@@ -603,7 +603,7 @@ function Sobre() {
 const CATEGORIES = [
   {
     n: '01', name: 'Sala de Estar',
-    desc: 'Century, Tumar, Iummi e Schuster.',
+    desc: 'Century, Tumar, Iummi, Schuster, Ponto Vírgula e ADM.',
     // Ordem definida pelo cliente (cronológica das fotos; a 12 vai por último).
     // Fotos tratadas em Images_Sala_Estar/melhoradas/ como sala_01.jpg … sala_12.jpg.
     // (o carrossel é tela cheia — 'format' do grid antigo não se aplica;
@@ -615,7 +615,7 @@ const CATEGORIES = [
     shots: [
       { src: 'Images_Sala_Estar/melhoradas/sala_01.jpg', caption: 'Sala de Estar · 01', pos: '42% 74%' },
       { src: 'Images_Sala_Estar/melhoradas/sala_02.jpg', caption: 'Sala de Estar · 02' },
-      { src: 'Images_Sala_Estar/melhoradas/sala_03.jpg', caption: 'Sala de Estar · 03', pos: '50% 48%' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_03.jpg', caption: 'Sala de Estar · 03', pos: '50% 64%' },
       { src: 'Images_Sala_Estar/melhoradas/sala_04.jpg', caption: 'Sala de Estar · 04', pos: '25% 70%' },
       { src: 'Images_Sala_Estar/melhoradas/sala_05.jpg', caption: 'Sala de Estar · 05', pos: '50% 62%' },
       { src: 'Images_Sala_Estar/melhoradas/sala_06.jpg', caption: 'Sala de Estar · 06' },
@@ -638,7 +638,7 @@ const CATEGORIES = [
   },
   {
     n: '03', name: 'Quarto',
-    desc: 'Century, Schuster e Iummi.',
+    desc: 'Century, Iummi e Ponto Vírgula.',
     shots: [
       { format: 'wide', src: 'Images_Quarto/melhoradas/WhatsApp_Image_2026-07-02_at_09.47.48.jpg', caption: 'Quarto · 01' },
       { format: 'tall', src: 'Images_Quarto/melhoradas/WhatsApp_Image_2026-07-02_at_09.47.58.jpg', caption: 'Quarto · 02', pos: 'center 22%' },
