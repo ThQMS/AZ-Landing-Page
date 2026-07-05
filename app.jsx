@@ -517,7 +517,7 @@ function Hero({ chandelierKey }) {
         <div className="hero-eyebrow">
           <div className="eyebrow">
             <span className="dash"></span>
-            Representação Comercial · Desde 2007
+            Representação Comercial
           </div>
         </div>
 
@@ -529,8 +529,6 @@ function Hero({ chandelierKey }) {
         </h1>
 
         <div className="hero-credentials">
-          <span>17 anos</span>
-          <span className="cred-sep">·</span>
           <span>Lojas conceituadas</span>
           <span className="cred-sep">·</span>
           <span>Regiões de atuação</span>
