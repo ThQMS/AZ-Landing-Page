@@ -532,6 +532,14 @@ function Hero({ chandelierKey }) {
           <span>Lojas conceituadas</span>
           <span className="cred-sep">·</span>
           <span>Regiões de atuação</span>
+          <span className="cred-sep">·</span>
+          <span>MS</span>
+          <span className="cred-sep">·</span>
+          <span>MT</span>
+          <span className="cred-sep">·</span>
+          <span>RO</span>
+          <span className="cred-sep">·</span>
+          <span>AC</span>
         </div>
 
         <div className="hero-meta">
