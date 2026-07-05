@@ -460,7 +460,8 @@ img { display: block; max-width: 100%; }
   font-size: 21px;
   font-weight: 300;
   letter-spacing: 0.04em;
-  color: var(--cream);
+  /* cor FIXA (não usar var(--cream), que inverte no modo claro e some) */
+  color: #f4efe4;
   padding: 15px 2px;
   border-bottom: 1px solid rgba(184,160,130,0.12);
 }
@@ -472,6 +473,20 @@ img { display: block; max-width: 100%; }
   text-transform: uppercase;
   color: var(--champagne) !important;
   margin-top: 10px;
+}
+/* Modo claro: menu mobile com fundo claro (igual à navbar clara) + texto escuro,
+   senão fica roxo escuro com texto invisível. */
+[data-theme="light"] .nav-mobile {
+  background: linear-gradient(135deg, rgba(212,188,148,0.98) 0%, rgba(196,168,122,0.98) 100%);
+  border-bottom-color: rgba(61,42,20,0.18);
+  box-shadow: 0 22px 50px rgba(120,95,55,0.28);
+}
+[data-theme="light"] .nav-mobile a {
+  color: #3d2a14;
+  border-bottom-color: rgba(61,42,20,0.14);
+}
+[data-theme="light"] .nav-mobile-ig {
+  color: #6b4e28 !important;
 }
 
 @media (max-width: 760px) {
