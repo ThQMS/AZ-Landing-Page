@@ -1285,7 +1285,7 @@ img { display: block; max-width: 100%; }
 .hero-furniture {
   position: absolute;
   right: clamp(24px, 5vw, 100px);
-  bottom: clamp(48px, 8vh, 110px);
+  bottom: clamp(160px, 27vh, 285px);
   z-index: 1;
   pointer-events: none;
   display: flex;
@@ -1352,17 +1352,20 @@ img { display: block; max-width: 100%; }
 .furniture-table::after {
   content: '';
   position: absolute;
-  bottom: -4px;
+  bottom: -6px;
   left: 50%;
+  width: 76%;
+  height: 14px;
   transform: translateX(-50%);
-  width: 65%;
-  height: 10px;
-  background: radial-gradient(ellipse, rgba(0,0,0,0.55) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(0,0,0,0.55) 0%, transparent 72%);
   opacity: 0;
-  animation: shadowFade 0.4s ease 1.9s forwards;
+  /* sombra de contato que "respira" devagar → ancora os móveis (não flutuam) */
+  animation: shadowIn 0.5s ease 1.9s forwards, shadowPulse 3.6s ease-in-out 2.6s infinite;
 }
-@keyframes shadowFade {
-  to { opacity: 1; }
+@keyframes shadowIn { to { opacity: 1; } }
+@keyframes shadowPulse {
+  0%, 100% { transform: translateX(-50%) scaleX(1);    opacity: 0.85; }
+  50%      { transform: translateX(-50%) scaleX(0.86); opacity: 0.55; }
 }
 
 /* Lustre */
