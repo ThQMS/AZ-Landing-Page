@@ -1060,7 +1060,11 @@ function Aurora({ isDark }) {
 // -------------------- App --------------------
 
 function App() {
-  const [isDark, setIsDark] = useState(false);
+  /* Estado inicial = tema já resolvido no <head> (script inline: localStorage → prefers-color-scheme → claro).
+     Escuro = SEM atributo data-theme; Claro = data-theme="light". */
+  const [isDark, setIsDark] = useState(
+    () => document.documentElement.getAttribute('data-theme') !== 'light'
+  );
   const [chandelierKey, setChandelierKey] = useState(0);
 
   const toggleTheme = () => {
@@ -1072,10 +1076,12 @@ function App() {
       /* Escuro → Claro: esconde lustre */
       document.documentElement.setAttribute('data-theme', 'light');
       setIsDark(false);
+      try { localStorage.setItem('az-theme', 'light'); } catch (e) {}
     } else {
       /* Claro → Escuro: lustre cai e acende */
       document.documentElement.removeAttribute('data-theme');
       setIsDark(true);
+      try { localStorage.setItem('az-theme', 'dark'); } catch (e) {}
       /* Pequeno delay para o CSS do tema escuro estar ativo antes do drop */
       setTimeout(() => setChandelierKey(k => k + 1), 80);
     }

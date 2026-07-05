@@ -3,6 +3,21 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Tema: resolve ANTES do paint p/ evitar flash de tema errado no refresh.
+     Prioridade: escolha salva (localStorage) > preferência do sistema (prefers-color-scheme) > claro (padrão).
+     Escuro = SEM data-theme; Claro = data-theme="light". O app.jsx lê este estado no mount. -->
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem('az-theme');
+      var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = saved || (prefersDark ? 'dark' : 'light');
+      if (theme === 'dark') document.documentElement.removeAttribute('data-theme');
+      else document.documentElement.setAttribute('data-theme', 'light');
+    } catch (e) {}
+  })();
+</script>
 <title>AZ Representações — Representação Comercial de Mobiliário de Alto Padrão</title>
 <meta name="description" content="AZ Representações — representação comercial de mobiliário de alto padrão. Reunimos fábricas de excelência (ADM, Bux, Century, Iummi, Ponto Vírgula, Schuster e Tumar) para lojistas e projetos exclusivos." />
 <meta name="theme-color" content="#14101a" />
@@ -1681,6 +1696,6 @@ img { display: block; max-width: 100%; }
 
   <!-- App React pré-compilado. FONTE editável: app.jsx  →  recompilar com: npm run build -->
   <!-- cache-busting: incrementar o ?v a CADA recompilação do app.js (senão navegadores servem versão antiga em cache) -->
-  <script src="app.js?v=2"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>
