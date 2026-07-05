@@ -17,3 +17,10 @@ Thumbs.db
 
 # Node / build
 node_modules/
+
+# Segredos (token da API de imagem — NUNCA commitar)
+.replicate_token
+.env
+
+# Guia interno do projeto — fica local, fora do repo
+CLAUDE.md

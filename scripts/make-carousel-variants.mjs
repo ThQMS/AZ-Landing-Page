@@ -21,7 +21,7 @@ import path from 'node:path';
 
 const WIDTHS = [640, 1280, 1600];
 const QUALITY = 86;
-const DIRS = ['Images_Quarto/melhoradas', 'Images_Office/melhoradas', 'Images_Sala_Estar/melhoradas'];
+const DIRS = ['Images_Quarto/melhoradas', 'Images_Office/melhoradas', 'Images_Sala_Estar/melhoradas', 'Images_Sala_Jantar/melhoradas', 'Images_Externas/melhoradas'];
 
 for (const dir of DIRS) {
   let files;

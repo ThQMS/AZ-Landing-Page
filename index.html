@@ -926,6 +926,7 @@ img { display: block; max-width: 100%; }
 .carousel-slide.active .slide-img { transform: scale(1); }
 .carousel-slide .slide-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(34px) brightness(0.45); transform: scale(1.15); z-index: 0; }
 .carousel-slide .slide-img.fit-contain { object-fit: contain; position: relative; z-index: 1; }
+.carousel-slide picture { position: absolute; inset: 0; display: block; } /* wrapper do <picture> (2 versões web/celular) preenche o painel */
 .carousel-slide .img-placeholder { width: 100%; height: 100%; }
 .carousel-scrim {
   position: absolute; inset: 0; z-index: 2; pointer-events: none;
@@ -1618,6 +1619,40 @@ img { display: block; max-width: 100%; }
   }
   [data-theme="light"] .nav.scrolled {
     background: rgba(196, 168, 122, 0.96);
+  }
+  /* sobre o carrossel: transparente tbm no mobile. Especificidade extra
+     (.scrolled.over-media) p/ vencer o .nav.scrolled opaco acima. */
+  .nav.scrolled.over-media,
+  [data-theme="light"] .nav.scrolled.over-media {
+    background: linear-gradient(to bottom,
+      rgba(8, 5, 12, 0.55) 0%,
+      rgba(8, 5, 12, 0.28) 45%,
+      rgba(8, 5, 12, 0) 100%);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom-color: transparent;
+    box-shadow: none;
+  }
+}
+
+/* Legibilidade no mobile: Bodoni (--display) e Cormorant (--serif) em peso leve
+   deixam hastes finíssimas (perna do "m", haste do "t") que "somem" em telas
+   pequenas de alta densidade. Só no mobile: (1) travar o optical-sizing do
+   Bodoni p/ engrossar as finas — mesmo truque do .hero-title — e (2) subir o
+   peso 300→400 nos textos pequenos e de leitura. Desktop fica intacto. */
+@media (max-width: 760px) {
+  .section-title, .carousel-name, .contato-title {
+    font-optical-sizing: none;
+    font-variation-settings: "opsz" 22, "wght" 300;
+  }
+  .carousel-num, .gb-name, .marca-name, .gb-num {
+    font-optical-sizing: none;
+    font-variation-settings: "opsz" 22, "wght" 400;
+    font-weight: 400;
+  }
+  .section-lead, .hero-tagline, .contato-lead, .sobre-text p,
+  .contato-block .block-value, .carousel-desc {
+    font-weight: 400;
   }
 }
 </style>

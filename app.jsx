@@ -613,7 +613,7 @@ const CATEGORIES = [
     // base). Cada aparelho usa o eixo que corta nele. As deitadas (02, 06, 11, 12)
     // ficam no padrão. Valores calibrados por foto conforme feedback do cliente.
     shots: [
-      { src: 'Images_Sala_Estar/melhoradas/sala_01.jpg', caption: 'Sala de Estar · 01', pos: '42% 74%' },
+      { src: 'Images_Sala_Estar/melhoradas/sala_01.jpg', srcMobile: 'Images_Sala_Estar/melhoradas/sala_01-m.jpg', caption: 'Sala de Estar · 01' },
       { src: 'Images_Sala_Estar/melhoradas/sala_02.jpg', caption: 'Sala de Estar · 02' },
       { src: 'Images_Sala_Estar/melhoradas/sala_03.jpg', caption: 'Sala de Estar · 03', pos: '50% 72%' },
       { src: 'Images_Sala_Estar/melhoradas/sala_04.jpg', caption: 'Sala de Estar · 04', pos: '85% 78%' },
@@ -630,41 +630,53 @@ const CATEGORIES = [
   {
     n: '02', name: 'Sala de Jantar',
     desc: 'Tumar, Century, Schuster, Iummi e ADM.',
+    // Fotos tratadas (Upscayl 4x → 2560px q86) em Images_Sala_Jantar/melhoradas/
+    // como jantar_01.jpg … jantar_07.jpg, na ordem definida pelo cliente.
     shots: [
-      { format: 'tall',   caption: 'Tumar · foto 1' },
-      { format: 'wide',   caption: 'Century · Schuster · foto 2' },
-      { format: 'square', caption: 'Iummi · ADM · foto 3' },
+      { src: 'Images_Sala_Jantar/melhoradas/jantar_01.jpg', caption: 'Sala de Jantar · 01' },
+      { src: 'Images_Sala_Jantar/melhoradas/jantar_02.jpg', caption: 'Sala de Jantar · 02' },
+      { src: 'Images_Sala_Jantar/melhoradas/jantar_03.jpg', caption: 'Sala de Jantar · 03' },
+      { src: 'Images_Sala_Jantar/melhoradas/jantar_04.jpg', caption: 'Sala de Jantar · 04' },
+      { src: 'Images_Sala_Jantar/melhoradas/jantar_05.jpg', caption: 'Sala de Jantar · 05' },
+      { src: 'Images_Sala_Jantar/melhoradas/jantar_06.jpg', caption: 'Sala de Jantar · 06' },
+      { src: 'Images_Sala_Jantar/melhoradas/jantar_07.jpg', caption: 'Sala de Jantar · 07' },
     ],
   },
   {
     n: '03', name: 'Quarto',
     desc: 'Century, Iummi e Ponto Vírgula.',
     shots: [
-      { format: 'wide', src: 'Images_Quarto/melhoradas/WhatsApp_Image_2026-07-02_at_09.47.48.jpg', caption: 'Quarto · 01' },
-      { format: 'tall', src: 'Images_Quarto/melhoradas/WhatsApp_Image_2026-07-02_at_09.47.58.jpg', caption: 'Quarto · 02', pos: 'center 22%' },
-      { format: 'tall', src: 'Images_Quarto/melhoradas/WhatsApp_Image_2026-07-02_at_09.48.06.jpg', caption: 'Quarto · 03' },
-      { format: 'wide', src: 'Images_Quarto/melhoradas/WhatsApp_Image_2026-07-02_at_09.48.15.jpg', caption: 'Quarto · 04' },
-      { format: 'wide', src: 'Images_Quarto/melhoradas/WhatsApp_Image_2026-07-02_at_09.48.23.jpg', caption: 'Quarto · 05' },
+      { src: 'Images_Quarto/melhoradas/quarto_01.jpg', caption: 'Quarto · 01' },
+      { src: 'Images_Quarto/melhoradas/quarto_02.jpg', caption: 'Quarto · 02', pos: 'center 22%' },
+      { src: 'Images_Quarto/melhoradas/quarto_03.jpg', caption: 'Quarto · 03' },
+      { src: 'Images_Quarto/melhoradas/quarto_04.jpg', caption: 'Quarto · 04' },
+      { src: 'Images_Quarto/melhoradas/quarto_05.jpg', caption: 'Quarto · 05' },
     ],
   },
   {
     n: '04', name: 'Office',
     desc: 'Century, Schuster, Iummi e ADM.',
     shots: [
-      { format: 'tall',     src: 'Images_Office/melhoradas/WhatsApp_Image_2026-06-26_at_16.24.58.jpg', caption: 'Office · 01' },
-      { format: 'tall',     src: 'Images_Office/melhoradas/WhatsApp_Image_2026-06-26_at_16.25.12.jpg', caption: 'Office · 02' },
-      { format: 'wide',     src: 'Images_Office/melhoradas/WhatsApp_Image_2026-06-26_at_16.25.26.jpg', caption: 'Office · 03' },
-      { format: 'portrait', src: 'Images_Office/melhoradas/WhatsApp_Image_2026-06-26_at_16.25.35.jpg', caption: 'Office · 04' },
-      { format: 'portrait', src: 'Images_Office/melhoradas/WhatsApp_Image_2026-07-02_at_09.47.18.jpg', caption: 'Office · 05' },
+      { src: 'Images_Office/melhoradas/office_01.jpg', caption: 'Office · 01' },
+      { src: 'Images_Office/melhoradas/office_02.jpg', caption: 'Office · 02' },
+      { src: 'Images_Office/melhoradas/office_03.jpg', caption: 'Office · 03' },
+      { src: 'Images_Office/melhoradas/office_04.jpg', caption: 'Office · 04' },
+      { src: 'Images_Office/melhoradas/office_05.jpg', caption: 'Office · 05' },
     ],
   },
   {
     n: '05', name: 'Outdoor & Lounge',
     desc: 'Bux.',
+    // Fotos tratadas (Upscayl 4x → 2560px q86) em Images_Externas/melhoradas/
+    // como externa_01.jpg … externa_07.jpg, na ordem definida pelo cliente.
     shots: [
-      { format: 'wide',   caption: 'Bux · foto 1' },
-      { format: 'tall',   caption: 'Bux · foto 2' },
-      { format: 'square', caption: 'Bux · foto 3' },
+      { src: 'Images_Externas/melhoradas/externa_01.jpg', caption: 'Outdoor & Lounge · 01' },
+      { src: 'Images_Externas/melhoradas/externa_02.jpg', caption: 'Outdoor & Lounge · 02' },
+      { src: 'Images_Externas/melhoradas/externa_03.jpg', caption: 'Outdoor & Lounge · 03' },
+      { src: 'Images_Externas/melhoradas/externa_04.jpg', caption: 'Outdoor & Lounge · 04' },
+      { src: 'Images_Externas/melhoradas/externa_05.jpg', caption: 'Outdoor & Lounge · 05' },
+      { src: 'Images_Externas/melhoradas/externa_06.jpg', caption: 'Outdoor & Lounge · 06' },
+      { src: 'Images_Externas/melhoradas/externa_07.jpg', caption: 'Outdoor & Lounge · 07' },
     ],
   },
 ];
@@ -692,14 +704,14 @@ function Carousel({ num, name, desc, shots }) {
         {shots.map((s, i) => (
           <figure key={i} className={`carousel-slide${i === idx ? ' active' : ''}`}>
             {s.src ? (
-              s.fit === 'contain' ? (
-                <>
-                  <img className="slide-bg" src={s.src} srcSet={buildSrcSet(s.src)} sizes="100vw" alt="" aria-hidden="true" />
-                  <img className="slide-img fit-contain" src={s.src} srcSet={buildSrcSet(s.src)} sizes="100vw" alt={s.caption} loading="lazy" />
-                </>
-              ) : (
-                <img className="slide-img" src={s.src} srcSet={buildSrcSet(s.src)} sizes="100vw" alt={s.caption} loading="lazy" style={s.pos ? { objectPosition: s.pos } : undefined} />
-              )
+              // Duas versões geradas com IA: 16:9 (web) p/ tela larga e 9:16 (-m)
+              // p/ retrato. O navegador escolhe pela proporção da tela (corte em
+              // 1:1). Ambas object-fit: cover — já nascem no formato certo (sem pos).
+              // A versão celular é derivada do nome (base -> base-m.jpg).
+              <picture>
+                <source media="(max-aspect-ratio: 1/1)" srcSet={buildSrcSet(s.srcMobile || s.src.replace(/\.jpe?g$/i, '-m.jpg'))} sizes="100vw" />
+                <img className="slide-img" src={s.src} srcSet={buildSrcSet(s.src)} sizes="100vw" alt={s.caption} loading="lazy" />
+              </picture>
             ) : (
               <div className="img-placeholder">
                 <span className="label">{name}<br />· foto {i + 1} ·</span>
@@ -886,7 +898,7 @@ function Contato() {
           </div>
           <div className="contato-block reveal d5">
             <div className="block-label">Horário</div>
-            <div className="block-value">Seg — Sex<br />09h às 18h</div>
+            <div className="block-value">Seg — Sex<br />08h às 18h</div>
             <div className="block-sub">Sáb · sob agendamento</div>
           </div>
         </div>
