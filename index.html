@@ -467,13 +467,12 @@ img { display: block; max-width: 100%; }
 }
 .nav-mobile a:last-child { border-bottom: 0; }
 .nav-mobile-ig {
-  font-family: var(--sans) !important;
-  font-size: 12px !important;
-  letter-spacing: 0.22em !important;
-  text-transform: uppercase;
-  color: var(--champagne) !important;
-  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  /* mesmo tipo de texto dos outros itens (herda .nav-mobile a: Bodoni 21px + cor do tema) */
 }
+.nav-mobile-ig svg { width: 21px; height: 21px; flex-shrink: 0; }
 /* Modo claro: menu mobile com fundo claro (igual à navbar clara) + texto escuro,
    senão fica roxo escuro com texto invisível. */
 [data-theme="light"] .nav-mobile {
@@ -484,9 +483,6 @@ img { display: block; max-width: 100%; }
 [data-theme="light"] .nav-mobile a {
   color: #3d2a14;
   border-bottom-color: rgba(61,42,20,0.14);
-}
-[data-theme="light"] .nav-mobile-ig {
-  color: #6b4e28 !important;
 }
 
 @media (max-width: 760px) {
