@@ -36,6 +36,6 @@ React · CSS · [Lenis](https://github.com/darkroomengineering/lenis) (scroll su
 
 **AZ Representações** · [@az_representacoes](https://www.instagram.com/az_representacoes/)
 
-© 2026 — Todos os direitos reservados. Ver [LICENSE](LICENSE).
+© 2026 AZ Representações — Todos os direitos reservados. Ver [LICENSE](LICENSE).
 
 </div>
