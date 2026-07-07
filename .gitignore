@@ -12,6 +12,10 @@ Carrosel_Mostruario_Melhorado/
 # Masters/intermediários pesados do mostruário estático antigo (não usados no site)
 Imagem_Mostruario/
 
+# Originais WhatsApp das amostras (backup local; nomes com acento quebram o build
+# do GitHub Pages e o site só usa as versões processadas em assets/swatches/)
+Carrosel_Mostruario/
+
 # Sistema operacional
 Thumbs.db
 .DS_Store
