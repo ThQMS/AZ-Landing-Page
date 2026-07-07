@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex" />
+<title>Mostruário (carrossel) — AZ Representações</title>
+<link rel="icon" type="image/png" href="assets/logo-az-purple.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,300;0,6..96,400;0,6..96,500;1,6..96,300;1,6..96,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@200;300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --ink-0: #07050a;
+  --ink-2: #14101a;
+  --plum: #3d1f4a;
+  --plum-soft: #6e4682;
+  --cream: #ede6da;
+  --cream-2: #c9c1b4;
+  --cream-3: #8a8276;
+  --champagne: #b8a082;
+  --display: "Bodoni Moda", "Didot", "Times New Roman", serif;
+  --serif: "Cormorant Garamond", "Times New Roman", serif;
+  --sans: "Manrope", -apple-system, sans-serif;
+  --gutter: clamp(20px, 4vw, 64px);
+  --page-max: 1200px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+/* Remove o contorno azul ao tocar/clicar (mobile e mouse), mantendo o anel
+   de foco para navegação por teclado (acessibilidade). Mesma regra do index.html. */
+:focus:not(:focus-visible) { outline: none; }
+button, a { -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  background: var(--ink-0);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: var(--page-max); margin: 0 auto; padding: clamp(56px, 9vw, 110px) var(--gutter) 110px; }
+.note { font-size: 12px; letter-spacing: 0.06em; color: var(--cream-3); margin-bottom: 48px; padding-bottom: 20px; border-bottom: 1px solid rgba(184, 160, 130, 0.18); }
+.note b { color: var(--champagne); font-weight: 500; }
+
+.sobre-layout { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 72px; align-items: center; }
+.sobre-copy { display: flex; flex-direction: column; gap: 26px; }
+.eyebrow { font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--champagne); }
+h2 { font-family: var(--display); font-weight: 300; font-size: clamp(34px, 4.5vw, 60px); line-height: 1.04; letter-spacing: -0.025em; color: var(--cream); }
+h2 em { font-style: italic; color: var(--champagne); }
+.lead { font-family: var(--serif); font-style: italic; font-size: clamp(18px, 1.5vw, 22px); color: var(--cream-2); }
+.body p { font-size: 15px; line-height: 1.85; color: var(--cream-2); font-weight: 300; }
+.body p + p { margin-top: 18px; }
+
+.sc {
+  position: relative;
+  width: min(100%, 520px);
+  justify-self: end;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--ink-2);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  user-select: none;
+}
+.sc-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.9s var(--ease); }
+.sc-slide.active { opacity: 1; }
+.sc-slide img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.08);
+  transition: transform 6s ease-out;
+}
+.sc-slide.active img { transform: scale(1); }
+
+.sc-scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(7,5,10,0.8) 0%, rgba(7,5,10,0.1) 45%, rgba(7,5,10,0.28) 100%); }
+.sc-num { position: absolute; top: 18px; left: 20px; font-family: var(--serif); font-size: 15px; letter-spacing: 0.12em; color: #f4efe4; text-shadow: 0 1px 6px rgba(0,0,0,0.5); }
+.sc-type { position: absolute; top: 18px; right: 20px; font-size: 9.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #f4efe4; background: rgba(7,5,10,0.4); backdrop-filter: blur(5px); padding: 5px 9px; }
+.sc-cap { position: absolute; left: 22px; right: 22px; bottom: 58px; }
+.sc-name { font-family: var(--display); font-weight: 300; font-size: clamp(22px, 2vw, 30px); line-height: 1.06; color: #f4efe4; }
+.sc-maker { margin-top: 9px; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: #cbb593; }
+.sc-maker span { color: #a89f90; }
+
+/* Setas: mesma linguagem do carrossel principal (círculo + hover champanhe),
+   em escala menor (~40px) proporcional ao slot 3:4. */
+.sc-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 40px; height: 40px; border-radius: 50%; z-index: 4;
+  display: grid; place-items: center;
+  background: rgba(18,14,24,0.22); border: 1px solid rgba(216,189,147,0.45);
+  color: #f4efe4; cursor: pointer;
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  transition: background 0.4s var(--ease), border-color 0.4s var(--ease), color 0.4s var(--ease);
+}
+.sc-arrow:hover { background: rgba(184,160,130,0.95); border-color: var(--champagne); color: #1d1726; }
+.sc-prev { left: 14px; } .sc-next { right: 14px; }
+.sc-prev:hover svg { transform: translateX(-3px); }
+.sc-next:hover svg { transform: translateX(3px); }
+.sc-arrow svg { width: 16px; height: 16px; transition: transform 0.4s var(--ease); }
+
+.sc-dots { position: absolute; left: 0; right: 0; bottom: 22px; display: flex; justify-content: center; gap: 9px; z-index: 4; }
+.sc-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(244,239,228,0.35); cursor: pointer; padding: 0; border: none; transition: background 0.3s, transform 0.3s; }
+.sc-dot.active { background: var(--champagne); transform: scale(1.25); }
+
+@media (max-width: 880px) {
+  .sobre-layout { grid-template-columns: 1fr; gap: 40px; }
+  .sc { justify-self: center; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="note">Protótipo — o carrossel de amostras ocupa <b>o mesmo espaço da foto</b> na seção Sobre (o <code>index.html</code> não foi alterado).</div>
+
+  <div class="sobre-layout">
+    <div class="sobre-copy">
+      <div class="eyebrow">I · Sobre</div>
+      <h2>Representamos mobiliário<br />de <em>design atemporal.</em></h2>
+      <p class="lead">O mobiliário de alto padrão é resultado de pessoas, materiais e tempo — e merece ser apresentado com a mesma atenção com que é feito.</p>
+      <div class="body">
+        <p>A AZ Representações é a interlocutora, nas regiões de atuação, de fábricas de mobiliário que entendem que cada espaço é único e especial.</p>
+        <p>Cada fábrica que representamos é escolhida pelo ofício antes do nome — pela maneira como tratam a madeira, pedra, couro, tecido e metal.</p>
+      </div>
+    </div>
+
+    <div class="sc" id="sc"></div>
+  </div>
+</div>
+
+<script>
+// 15 amostras reais (fotos tratadas + latão regenerado por IA). Ordenadas p/ alternar
+// as famílias de material (tecido / couro / madeira / pedra / metal) a cada slide.
+const MATERIALS = [
+  { file: 'veludo',           name: 'Veludo',            type: 'Tecido' },
+  { file: 'couro-natural',    name: 'Couro Natural',     type: 'Couro' },
+  { file: 'nogueira',         name: 'Nogueira',          type: 'Madeira' },
+  { file: 'verde-guatemala',  name: 'Verde Guatemala',   type: 'Pedra' },
+  { file: 'latao-polido',     name: 'Latão Polido',      type: 'Metal' },
+  { file: 'boucle',           name: 'Bouclé',            type: 'Tecido' },
+  { file: 'camurca',          name: 'Camurça',           type: 'Couro' },
+  { file: 'wengue',           name: 'Wengué',            type: 'Madeira' },
+  { file: 'travertino-romano',name: 'Travertino Romano', type: 'Pedra' },
+  { file: 'palha-sextavada',  name: 'Palha Sextavada',   type: 'Fibra' },
+  { file: 'jacquard',         name: 'Jacquard',          type: 'Tecido' },
+  { file: 'recouro',          name: 'Recouro',           type: 'Couro' },
+  { file: 'laca',             name: 'Laca',              type: 'Acabamento' },
+  { file: 'marmore-nuvolato', name: 'Mármore Nuvolato',  type: 'Pedra' },
+  { file: 'linho-sintetico',  name: 'Linho Sintético',   type: 'Tecido' },
+];
+
+const CHEVRON_L = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M15 4l-8 8 8 8"/></svg>';
+const CHEVRON_R = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M9 4l8 8-8 8"/></svg>';
+
+function buildCarousel(root, items) {
+  const n = items.length;
+  const slides = items.map((m, i) =>
+    '<div class="sc-slide">' +
+    '<img src="assets/swatches/' + m.file + '.jpg" ' +
+    'srcset="assets/swatches/' + m.file + '-640.jpg 640w, assets/swatches/' + m.file + '-1040.jpg 1040w" ' +
+    'sizes="(max-width: 880px) 90vw, 520px" ' +
+    'alt="' + m.name + ' — ' + m.type + '" decoding="async" loading="lazy" />' +
+    '<div class="sc-scrim"></div>' +
+    '<span class="sc-num">' + String(i + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0') + '</span>' +
+    '<span class="sc-type">' + m.type + '</span>' +
+    '<div class="sc-cap"><div class="sc-name">' + m.name + '</div></div>' +
+    '</div>').join('');
+  const dots = items.map(() => '<button class="sc-dot" type="button" aria-label="ver amostra"></button>').join('');
+  root.innerHTML = slides +
+    '<button class="sc-arrow sc-prev" type="button" aria-label="anterior">' + CHEVRON_L + '</button>' +
+    '<button class="sc-arrow sc-next" type="button" aria-label="próxima">' + CHEVRON_R + '</button>' +
+    '<div class="sc-dots">' + dots + '</div>';
+}
+
+// Carrossel de amostras: crossfade entre slides, setas + dots, autoplay que
+// pausa no hover. Um material por vez, ocupando o slot 3:4 da foto.
+function initCarousel(root) {
+  const slides = Array.from(root.querySelectorAll('.sc-slide'));
+  const dots = Array.from(root.querySelectorAll('.sc-dot'));
+  let idx = 0;
+  let timer = null;
+  function show(n) {
+    idx = (n + slides.length) % slides.length;
+    slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  }
+  function play() { stop(); timer = setInterval(() => show(idx + 1), 3800); }
+  function stop() { if (timer) clearInterval(timer); timer = null; }
+  root.querySelector('.sc-next').addEventListener('click', () => { show(idx + 1); play(); });
+  root.querySelector('.sc-prev').addEventListener('click', () => { show(idx - 1); play(); });
+  dots.forEach((d, i) => d.addEventListener('click', () => { show(i); play(); }));
+  root.addEventListener('mouseenter', stop);
+  root.addEventListener('mouseleave', play);
+  show(0);
+  play();
+}
+
+const sc = document.getElementById('sc');
+buildCarousel(sc, MATERIALS);
+initCarousel(sc);
+</script>
+</body>
+</html>

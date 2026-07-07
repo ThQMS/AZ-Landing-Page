@@ -567,44 +567,110 @@ function Hero({ chandelierKey }) {
 
 // -------------------- Sobre --------------------
 
+// Mostruário: carrossel de amostras de materiais no slot da foto (retrato 3:4).
+// Cada amostra tem -640/-1040 (srcset) + fallback em assets/swatches/. Ordenadas
+// alternando as famílias (tecido/couro/madeira/pedra/metal). Fotos tratadas +
+// latão/nogueira gerados por IA; marcas d'água removidas. Ver GUIA-MOSTRUARIO-CARROSSEL.md.
+const SWATCHES = [
+  { file: 'veludo',            name: 'Veludo',            type: 'Tecido' },
+  { file: 'couro-natural',     name: 'Couro Natural',     type: 'Couro' },
+  { file: 'nogueira',          name: 'Nogueira',          type: 'Madeira' },
+  { file: 'verde-guatemala',   name: 'Verde Guatemala',   type: 'Pedra' },
+  { file: 'latao-polido',      name: 'Latão Polido',      type: 'Metal' },
+  { file: 'boucle',            name: 'Bouclé',            type: 'Tecido' },
+  { file: 'camurca',           name: 'Camurça',           type: 'Couro' },
+  { file: 'wengue',            name: 'Wengué',            type: 'Madeira' },
+  { file: 'travertino-romano', name: 'Travertino Romano', type: 'Pedra' },
+  { file: 'palha-sextavada',   name: 'Palha Sextavada',   type: 'Fibra' },
+  { file: 'jacquard',          name: 'Jacquard',          type: 'Tecido' },
+  { file: 'recouro',           name: 'Recouro',           type: 'Couro' },
+  { file: 'laca',              name: 'Laca',              type: 'Acabamento' },
+  { file: 'marmore-nuvolato',  name: 'Mármore Nuvolato',  type: 'Pedra' },
+  { file: 'linho-sintetico',   name: 'Linho Sintético',   type: 'Tecido' },
+];
+
+// Crossfade + ken-burns entre amostras, setas + dots. SEM autoplay: avança só no
+// clique (igual ao carrossel principal). Legenda em hex claro FIXO (não var(--cream))
+// p/ não sumir no tema claro — mesmo gotcha do carrossel principal.
+function SwatchCarousel() {
+  const [idx, setIdx] = useState(0);
+  const n = SWATCHES.length;
+  const go = (d) => setIdx((p) => (p + d + n) % n);
+  return (
+    <div className="swatch-carousel">
+      {SWATCHES.map((m, i) => (
+        <div key={m.file} className={`swatch-slide${i === idx ? ' active' : ''}`}>
+          <img
+            src={`assets/swatches/${m.file}.jpg`}
+            srcSet={`assets/swatches/${m.file}-640.jpg 640w, assets/swatches/${m.file}-1040.jpg 1040w`}
+            sizes="(max-width: 880px) 90vw, 520px"
+            alt={`Amostra de ${m.name} — ${m.type}`}
+            loading="lazy" decoding="async"
+          />
+          <div className="swatch-scrim"></div>
+          <span className="swatch-num">{String(i + 1).padStart(2, '0')} / {String(n).padStart(2, '0')}</span>
+          <span className="swatch-type">{m.type}</span>
+          <div className="swatch-cap"><div className="swatch-name">{m.name}</div></div>
+        </div>
+      ))}
+      <button className="swatch-arrow prev" onClick={() => go(-1)} aria-label="Amostra anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 5 8 12 15 19" /></svg>
+      </button>
+      <button className="swatch-arrow next" onClick={() => go(1)} aria-label="Próxima amostra">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 5 16 12 9 19" /></svg>
+      </button>
+      <div className="swatch-dots">
+        {SWATCHES.map((m, i) => (
+          <button
+            key={m.file}
+            className={`swatch-dot${i === idx ? ' active' : ''}`}
+            onClick={() => setIdx(i)}
+            aria-label={`Ver amostra ${i + 1}`}
+          ></button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function Sobre() {
   const ref = useReveal();
   return (
     <section id="sobre" className="section sobre" ref={ref}>
       <div className="section-inner">
-        <div className="section-head">
-          <div className="head-left">
+        <div className="sobre-layout">
+          <div className="sobre-copy">
             <SectionEyebrow roman="I" label="Sobre" />
             <h2 className="section-title reveal d1">
               Representamos mobiliário<br />
               de <em>design atemporal.</em>
             </h2>
-          </div>
-          <p className="section-lead reveal d2">
-            O mobiliário de alto padrão é resultado de pessoas, materiais
-            e tempo — e merece ser apresentado com a mesma atenção com que
-            é feito.
-          </p>
-        </div>
-
-        <div className="sobre-grid">
-          <div className="sobre-text">
-            <p className="reveal dropcap">
-              A AZ Representações é a interlocutora, nas regiões de atuação,
-              de fábricas de mobiliário que entendem que cada espaço é único
-              e especial. Trabalhamos lado a lado com lojistas de referência
-              e seus arquitetos e designers parceiros para criar ambientes
-              que duram gerações.
+            <p className="section-lead reveal d2">
+              O mobiliário de alto padrão é resultado de pessoas, materiais
+              e tempo — e merece ser apresentado com a mesma atenção com que
+              é feito.
             </p>
-            <p className="reveal d1">
-              Cada fábrica que representamos é escolhida pelo ofício antes
-              do nome — pela maneira como tratam a madeira, pedra, couro,
-              tecido e metal. E principalmente, pelo modo como suas peças
-              envelhecem, pelas mãos por trás de cada acabamento. Não somos
-              um catálogo amplo, e sim uma curadoria estreita.
-            </p>
+            <div className="sobre-text">
+              <p className="reveal dropcap">
+                A AZ Representações é a interlocutora, nas regiões de atuação,
+                de fábricas de mobiliário que entendem que cada espaço é único
+                e especial. Trabalhamos lado a lado com lojistas de referência
+                e seus arquitetos e designers parceiros para criar ambientes
+                que duram gerações.
+              </p>
+              <p className="reveal d1">
+                Cada fábrica que representamos é escolhida pelo ofício antes
+                do nome — pela maneira como tratam a madeira, pedra, couro,
+                tecido e metal. E principalmente, pelo modo como suas peças
+                envelhecem, pelas mãos por trás de cada acabamento. Não somos
+                um catálogo amplo, e sim uma curadoria estreita.
+              </p>
+            </div>
           </div>
 
+          <div className="sobre-media reveal d2">
+            <SwatchCarousel />
+          </div>
         </div>
       </div>
     </section>

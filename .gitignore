@@ -7,6 +7,10 @@ _*.html
 
 # Saída bruta do Upscayl (intermediário pesado; só as melhoradas/ vão pro repo)
 upscayl_*/
+Carrosel_Mostruario_Melhorado/
+
+# Masters/intermediários pesados do mostruário estático antigo (não usados no site)
+Imagem_Mostruario/
 
 # Sistema operacional
 Thumbs.db
